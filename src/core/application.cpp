@@ -1,20 +1,22 @@
 #include "pch.h"
 #include "application.h"
 
+#include "logger.h"
+
 namespace lava
 {
 	application::application()
 	{
-		std::cout << "application::application()" << std::endl;
+		m_logger = logger::create("lava", "%^%T [%l]: %v%$");
 	}
 
 	application::~application()
 	{
-		std::cout << "application::~application()" << std::endl;
+		delete m_logger;
 	}
 
 	void application::run()
 	{
-		std::cout << "application::run()" << std::endl;
+		
 	}
 }

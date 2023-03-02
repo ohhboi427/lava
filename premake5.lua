@@ -14,6 +14,11 @@ project "lava"
 
 	includedirs {
 		"src",
+		"vendor/spdlog/include",
+	}
+
+	defines {
+		"SPDLOG_USE_STD_FORMAT",
 	}
 
 	pchheader "pch.h"

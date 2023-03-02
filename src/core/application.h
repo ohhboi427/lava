@@ -2,6 +2,8 @@
 
 namespace lava
 {
+	class logger;
+
 	class application
 	{
 	public:
@@ -16,6 +18,6 @@ namespace lava
 		void run();
 
 	private:
-
+		logger* m_logger;
 	};
 }
