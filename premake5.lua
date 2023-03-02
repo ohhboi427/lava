@@ -15,6 +15,8 @@ project "lava"
 	includedirs {
 		"src",
 		"vendor/spdlog/include",
+		"vendor/json/include",
+		"vendor/entt/include",
 	}
 
 	defines {
