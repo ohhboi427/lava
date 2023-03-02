@@ -12,6 +12,13 @@ project "lava"
 		"src/**.h",
 	}
 
+	includedirs {
+		"src",
+	}
+
+	pchheader "pch.h"
+	pchsource "src/pch.cpp"
+
 	targetdir "bin"
 	objdir    "obj/%{cfg.buildcfg}"
 

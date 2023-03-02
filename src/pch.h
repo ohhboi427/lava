@@ -1,0 +1,47 @@
+#pragma once
+
+#include <bit>
+#include <ratio>
+#include <regex>
+#include <tuple>
+#include <chrono>
+#include <format>
+#include <limits>
+#include <memory>
+#include <random>
+#include <ranges>
+#include <compare>
+#include <fstream>
+#include <numbers>
+#include <numeric>
+#include <sstream>
+#include <utility>
+#include <concepts>
+#include <iostream>
+#include <iterator>
+#include <optional>
+#include <algorithm>
+#include <coroutine>
+#include <filesystem>
+#include <functional>
+
+#include <latch>
+#include <mutex>
+#include <barrier>
+#include <semaphore>
+#include <condition_variable>
+#include <atomic>
+#include <future>
+#include <thread>
+#include <execution>
+
+#include <string>
+#include <string_view>
+#include <span>
+#include <array>
+#include <queue>
+#include <vector>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
