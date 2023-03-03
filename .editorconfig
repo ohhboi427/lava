@@ -10,3 +10,6 @@ tab_width = 4
 
 [*.{sln,vcxproj,vcxproj.filters,vcxproj.user}]
 end_of_line = crlf
+
+[*.txt]
+insert_final_newline = false
