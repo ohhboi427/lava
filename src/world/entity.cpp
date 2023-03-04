@@ -22,9 +22,6 @@ namespace lava
 		other.m_world = nullptr;
 	}
 
-	entity::~entity()
-	{}
-
 	entity& entity::operator=(const entity& rhs)
 	{
 		m_handle = rhs.m_handle;

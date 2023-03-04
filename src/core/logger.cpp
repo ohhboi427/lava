@@ -15,9 +15,6 @@ namespace lava
 		m_logger->flush_on(spdlog::level::warn);
 	}
 
-	logger::~logger()
-	{}
-
 	logger* logger::create(const std::string& name, const std::string& pattern)
 	{
 		logger* newLogger = new logger(name, pattern);

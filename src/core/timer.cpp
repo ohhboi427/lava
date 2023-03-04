@@ -3,12 +3,6 @@
 
 namespace lava
 {
-	timer::timer()
-	{}
-
-	timer::~timer()
-	{}
-
 	void timer::reset()
 	{
 		m_start = m_clock.now();

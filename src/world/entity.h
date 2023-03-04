@@ -17,7 +17,7 @@ namespace lava
 		entity(entt::entity handle, world* world);
 		entity(const entity& other);
 		entity(entity&& other) noexcept;
-		~entity();
+		~entity() = default;
 
 		entity& operator=(const entity& rhs);
 		entity& operator=(entity&& rhs) noexcept;
