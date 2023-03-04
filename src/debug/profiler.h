@@ -23,4 +23,8 @@ namespace lava
 	};
 }
 
-#define LAVA_PROFILE_FUNCTION() ::lava::profiler profiler(__FUNCTION__)
+#ifdef LAVA_DEBUG
+#  define LAVA_PROFILE_FUNCTION() ::lava::profiler profiler(__FUNCTION__)
+#else
+#  define LAVA_PROFILE_FUNCTION()
+#endif // LAVA_DEBUG	

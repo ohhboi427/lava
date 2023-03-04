@@ -34,7 +34,13 @@ project "lava"
 		targetname "%{prj.name}d"
 		optimize "off"
 		symbols "on"
+		defines {
+			"LAVA_DEBUG",
+		}
 
 	filter "configurations:Release"
 		optimize "on"
 		symbols "off"
+		defines {
+			"LAVA_RELEASE",
+		}
