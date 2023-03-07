@@ -2,6 +2,8 @@
 #include "application.h"
 
 #include "logger.h"
+#include "../resource/resource_manager.h"
+#include "../resource/resource_text_file.h"
 
 namespace lava
 {
@@ -17,6 +19,6 @@ namespace lava
 
 	void application::run()
 	{
-		
+
 	}
 }
