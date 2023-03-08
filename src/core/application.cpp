@@ -3,7 +3,7 @@
 
 #include "logger.h"
 #include "../resource/resource_manager.h"
-#include "../resource/resource_text_file.h"
+#include "../resource/text_file.h"
 
 namespace lava
 {

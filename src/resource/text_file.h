@@ -7,11 +7,11 @@
 
 namespace lava
 {
-	class resource_text_file : public resource
+	class text_file : public resource
 	{
 	public:
-		resource_text_file(const std::filesystem::path& path);
-		~resource_text_file();
+		text_file(const std::filesystem::path& path);
+		~text_file();
 
 		std::string& data() { m_isDirty = true; return m_data; }
 		const std::string& cdata() const { return m_data; }

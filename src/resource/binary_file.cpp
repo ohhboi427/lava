@@ -1,9 +1,9 @@
 #include "pch.h"
-#include "resource_binary_file.h"
+#include "binary_file.h"
 
 namespace lava
 {
-	resource_bin_file::resource_bin_file(const std::filesystem::path& path)
+	binary_file::binary_file(const std::filesystem::path& path)
 		: resource(path)
 	{
 		std::ifstream file(m_path, std::ios::in | std::ios::binary);
@@ -21,7 +21,7 @@ namespace lava
 		}
 	}
 
-	resource_bin_file::~resource_bin_file()
+	binary_file::~binary_file()
 	{
 		if(m_isDirty)
 		{

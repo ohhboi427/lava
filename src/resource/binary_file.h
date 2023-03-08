@@ -8,11 +8,11 @@
 
 namespace lava
 {
-	class resource_bin_file : public resource
+	class binary_file : public resource
 	{
 	public:
-		resource_bin_file(const std::filesystem::path& path);
-		~resource_bin_file();
+		binary_file(const std::filesystem::path& path);
+		~binary_file();
 
 		std::vector<uint8_t>& data() { m_isDirty = true; return m_data; }
 		const std::vector<uint8_t>& cdata() const { return m_data; }
