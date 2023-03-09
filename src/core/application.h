@@ -3,6 +3,7 @@
 namespace lava
 {
 	class logger;
+	class window;
 
 	class application
 	{
@@ -18,6 +19,8 @@ namespace lava
 		void run();
 
 	private:
+		bool m_running = true;
 		logger* m_logger;
+		window* m_window;
 	};
 }

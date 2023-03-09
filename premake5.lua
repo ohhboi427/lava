@@ -17,10 +17,24 @@ project "lava"
 		"vendor/spdlog/include",
 		"vendor/json/include",
 		"vendor/entt/include",
+		"vendor/glad/include",
+		"vendor/glfw/include",
+	}
+	
+	libdirs {
+		"vendor/glad/lib",
+		"vendor/glfw/lib",
+	}
+
+	links {
+		"opengl32.lib",
+		"glad.lib",
+		"glfw3.lib",
 	}
 
 	defines {
 		"SPDLOG_USE_STD_FORMAT",
+		"GLFW_INCLUDE_NONE",
 	}
 
 	pchheader "pch.h"
