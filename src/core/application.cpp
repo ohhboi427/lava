@@ -3,8 +3,8 @@
 
 #include "logger.h"
 #include "window.h"
+#include "../renderer/renderer.h"
 
-#include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
 namespace lava
@@ -15,10 +15,14 @@ namespace lava
 
 		m_window = new window(800, 600, "lava");
 		m_window->on_close_event += [&] { m_running = false; };
+
+		m_renderer = new renderer(*m_window);
 	}
 
 	application::~application()
 	{
+		delete m_renderer;
+
 		delete m_window;
 
 		delete m_logger;
@@ -26,17 +30,11 @@ namespace lava
 
 	void application::run()
 	{
-		glfwMakeContextCurrent(*m_window);
-		gladLoadGL((GLADloadfunc)glfwGetProcAddress);
-
-		glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
-
 		while(m_running)
 		{
 			glfwPollEvents();
 
-			glClear(GL_COLOR_BUFFER_BIT);
-			glfwSwapBuffers(*m_window);
+			m_renderer->render_frame();
 		}
 	}
 }

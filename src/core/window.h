@@ -3,6 +3,7 @@
 #include "../utility/event.h"
 
 #include <string>
+#include <string_view>
 #include <cstdint>
 
 struct GLFWwindow;
@@ -24,6 +25,10 @@ namespace lava
 		window& operator=(window&&) noexcept = delete;
 		
 		operator GLFWwindow* () const { return m_handle; }
+
+		int width() const { return m_width; }
+		int height() const { return m_height; }
+		std::string_view title() const { return m_title; }
 
 	private:
 		static uint8_t s_window_count;

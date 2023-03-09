@@ -4,6 +4,7 @@ namespace lava
 {
 	class logger;
 	class window;
+	class renderer;
 
 	class application
 	{
@@ -22,5 +23,6 @@ namespace lava
 		bool m_running = true;
 		logger* m_logger;
 		window* m_window;
+		renderer* m_renderer;
 	};
 }
