@@ -14,7 +14,6 @@ namespace lava
 		event() = default;
 		event(const event&) = delete;
 		event(event&&) noexcept = delete;
-		~event() = default;
 
 		event& operator=(const event&) = delete;
 		event& operator=(event&&) noexcept = delete;

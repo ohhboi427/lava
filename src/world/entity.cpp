@@ -3,10 +3,6 @@
 
 namespace lava
 {
-	entity::entity()
-		: m_handle(entt::null), m_world(nullptr)
-	{}
-
 	entity::entity(entt::entity handle, world* world)
 		: m_handle(handle), m_world(world)
 	{}

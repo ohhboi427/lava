@@ -23,7 +23,7 @@ namespace lava
 
 	binary_file::~binary_file()
 	{
-		if(m_isDirty)
+		if(m_is_dirty)
 		{
 			std::ofstream file(m_path, std::ios::out | std::ios::binary);
 			if(file)

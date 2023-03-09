@@ -12,8 +12,8 @@ namespace lava
 	class window
 	{
 	public:
-		event<> onClose;
-		event<int, int> onResize;
+		event<> on_close_event;
+		event<int, int> on_resize_event;
 
 		window(int width, int height, const std::string& title);
 		window(const window&) = delete;
@@ -26,7 +26,7 @@ namespace lava
 		operator GLFWwindow* () const { return m_handle; }
 
 	private:
-		static uint8_t s_windowCount;
+		static uint8_t s_window_count;
 
 		GLFWwindow* m_handle;
 		int m_width;

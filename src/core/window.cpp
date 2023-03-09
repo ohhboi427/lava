@@ -5,12 +5,12 @@
 
 namespace lava
 {
-	uint8_t window::s_windowCount = 0u;
+	uint8_t window::s_window_count = 0u;
 
 	window::window(int width, int height, const std::string& title)
 		: m_width(width), m_height(height), m_title(title)
 	{
-		if(s_windowCount++ == 0u)
+		if(s_window_count++ == 0u)
 		{
 			glfwInit();
 
@@ -31,7 +31,7 @@ namespace lava
 	{
 		glfwDestroyWindow(m_handle);
 
-		if(--s_windowCount == 0u)
+		if(--s_window_count == 0u)
 		{
 			glfwTerminate();
 		}
@@ -40,7 +40,7 @@ namespace lava
 	void window::on_close_handler(GLFWwindow* handle)
 	{
 		window& window = window_from_handle(handle);
-		window.onClose();
+		window.on_close_event();
 	}
 
 	void window::on_resize_handler(GLFWwindow* handle, int width, int height)
@@ -48,7 +48,7 @@ namespace lava
 		window& window = window_from_handle(handle);
 		window.m_width = width;
 		window.m_height = height;
-		window.onResize(window.m_width, window.m_height);
+		window.on_resize_event(window.m_width, window.m_height);
 	}
 
 	window& window_from_handle(GLFWwindow* handle)

@@ -31,10 +31,10 @@ namespace lava
 				return std::dynamic_pointer_cast<T>(s_resources.at(path).lock());
 			}
 
-			std::shared_ptr<T> newResource = std::make_shared<T>(path);
-			s_resources.insert_or_assign(path, std::dynamic_pointer_cast<resource>(newResource));
+			std::shared_ptr<T> new_resource = std::make_shared<T>(path);
+			s_resources.insert_or_assign(path, std::dynamic_pointer_cast<resource>(new_resource));
 
-			return newResource;
+			return new_resource;
 		}
 
 	private:

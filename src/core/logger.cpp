@@ -17,14 +17,14 @@ namespace lava
 
 	logger* logger::create(const std::string& name, const std::string& pattern)
 	{
-		logger* newLogger = new logger(name, pattern);
+		logger* new_logger = new logger(name, pattern);
 
 		if(s_main == nullptr)
 		{
-			s_main = newLogger;
+			s_main = new_logger;
 		}
 
-		return newLogger;
+		return new_logger;
 	}
 
 	logger& logger::main()

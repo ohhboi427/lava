@@ -18,7 +18,6 @@ namespace lava
 		timer() = default;
 		timer(const timer&) = delete;
 		timer(timer&&) noexcept = delete;
-		~timer() = default;
 
 		timer& operator=(const timer&) = delete;
 		timer& operator=(timer&&) noexcept = delete;
@@ -39,12 +38,12 @@ namespace lava
 		}
 
 	private:
-		using clock = std::chrono::steady_clock;
-		using time = clock::time_point;
+		using clock_t = std::chrono::steady_clock;
+		using time_t = clock_t::time_point;
 
-		clock m_clock;
-		time m_start;
-		time m_current;
-		time m_last;
+		clock_t m_clock;
+		time_t m_start;
+		time_t m_current;
+		time_t m_last;
 	};
 }

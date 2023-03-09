@@ -14,7 +14,7 @@ namespace lava
 		m_logger = logger::create("lava", "%^%T [%l]: %v%$");
 
 		m_window = new window(800, 600, "lava");
-		m_window->onClose += [&] { m_running = false; };
+		m_window->on_close_event += [&] { m_running = false; };
 	}
 
 	application::~application()

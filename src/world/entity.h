@@ -13,11 +13,10 @@ namespace lava
 		friend class world;
 
 	public:
-		entity();
+		entity() = default;
 		entity(entt::entity handle, world* world);
 		entity(const entity& other);
 		entity(entity&& other) noexcept;
-		~entity() = default;
 
 		entity& operator=(const entity& rhs);
 		entity& operator=(entity&& rhs) noexcept;
@@ -47,7 +46,7 @@ namespace lava
 		}
 
 	private:
-		entt::entity m_handle;
-		world* m_world;
+		entt::entity m_handle = entt::null;
+		world* m_world = nullptr;
 	};
 }

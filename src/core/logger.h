@@ -14,7 +14,6 @@ namespace lava
 	public:
 		logger(const logger&) = delete;
 		logger(logger&&) noexcept = delete;
-		~logger() = default;
 
 		logger& operator=(const logger&) = delete;
 		logger& operator=(logger&&) noexcept = delete;
