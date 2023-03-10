@@ -1,32 +1,28 @@
 #pragma once
 
-#include "../resource/resource.h"
-
-#include <filesystem>
 #include <string>
-#include <string_view>
-#include <map>
 #include <cstdint>
 
 namespace lava
 {
-	enum class shader_stage : uint32_t
-	{
-		vertex = 35633u,
-		fragment = 35632u,
-	};
+	class shader_library;
 
-	class shader : public resource
+	class shader
 	{
+		friend class shader_library;
+
 	public:
-		shader(const std::filesystem::path& path);
-		~shader();
+		shader(const shader& other);
+		shader(shader&& other) noexcept;
+
+		shader& operator=(const shader& rhs);
+		shader& operator=(shader&& rhs) noexcept;
 
 		operator uint32_t () const { return m_handle; }
 
 	private:
 		uint32_t m_handle;
 
-		static std::filesystem::path stage_to_extension(shader_stage stage);
+		shader(uint32_t handle);
 	};
 }
