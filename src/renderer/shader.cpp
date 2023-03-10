@@ -33,7 +33,6 @@ namespace lava
 		: m_handle(other.m_handle), m_uniforms(std::move(other.m_uniforms))
 	{
 		other.m_handle = 0u;
-		other.m_uniforms.clear();
 	}
 
 	shader& shader::operator=(const shader& rhs)
@@ -50,7 +49,6 @@ namespace lava
 		m_uniforms = std::move(rhs.m_uniforms);
 
 		rhs.m_handle = 0u;
-		rhs.m_uniforms.clear();
 
 		return *this;
 	}
