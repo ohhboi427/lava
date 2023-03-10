@@ -66,12 +66,11 @@ namespace lava
 
 	int32_t shader::uniform_location(const std::string& name) const
 	{
-		std::string name_str(name.data());
-		if(!m_uniforms.contains(name_str))
+		if(m_uniforms.contains(name))
 		{
-			return -1;
+			m_uniforms.at(name);
 		}
 
-		return m_uniforms.at(name_str);
+		return -1;
 	}
 }

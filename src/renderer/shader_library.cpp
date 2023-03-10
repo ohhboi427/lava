@@ -39,12 +39,10 @@ namespace lava
 		for(const auto& entry : std::filesystem::directory_iterator(directory))
 		{
 			std::filesystem::path path = entry.path();
-			if(!(path.has_extension() && path.extension() == ".json"))
+			if(path.has_extension() && path.extension() == ".json")
 			{
-				continue;
+				load(path);
 			}
-
-			load(path);
 		}
 	}
 
