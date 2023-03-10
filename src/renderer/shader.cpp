@@ -2,6 +2,7 @@
 #include "shader.h"
 
 #include <glad/gl.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace lava
 {
@@ -59,16 +60,56 @@ namespace lava
 		glProgramUniform1i(m_handle, uniform_location(name), value);
 	}
 
+	void shader::set_uniform(const std::string& name, const glm::ivec2& value)
+	{
+		glProgramUniform2iv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
+	}
+
+	void shader::set_uniform(const std::string& name, const glm::ivec3& value)
+	{
+		glProgramUniform3iv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
+	}
+
+	void shader::set_uniform(const std::string& name, const glm::ivec4& value)
+	{
+		glProgramUniform4iv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
+	}
+
 	void shader::set_uniform(const std::string& name, float value)
 	{
 		glProgramUniform1f(m_handle, uniform_location(name), value);
+	}
+
+	void shader::set_uniform(const std::string& name, const glm::vec2& value)
+	{
+		glProgramUniform2fv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
+	}
+
+	void shader::set_uniform(const std::string& name, const glm::vec3& value)
+	{
+		glProgramUniform3fv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
+	}
+
+	void shader::set_uniform(const std::string& name, const glm::vec4& value)
+	{
+		glProgramUniform4fv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
+	}
+
+	void shader::set_uniform(const std::string& name, const glm::mat3& value)
+	{
+		glProgramUniformMatrix3fv(m_handle, uniform_location(name), 1, GL_FALSE, glm::value_ptr(value));
+	}
+
+	void shader::set_uniform(const std::string& name, const glm::mat4& value)
+	{
+		glProgramUniformMatrix4fv(m_handle, uniform_location(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
 
 	int32_t shader::uniform_location(const std::string& name) const
 	{
 		if(m_uniforms.contains(name))
 		{
-			m_uniforms.at(name);
+			return m_uniforms.at(name);
 		}
 
 		return -1;

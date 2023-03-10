@@ -1,7 +1,8 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 #include <string>
-#include <string_view>
 #include <unordered_map>
 #include <cstdint>
 
@@ -23,7 +24,15 @@ namespace lava
 		operator uint32_t () const { return m_handle; }
 
 		void set_uniform(const std::string& name, int32_t value);
+		void set_uniform(const std::string& name, const glm::ivec2& value);
+		void set_uniform(const std::string& name, const glm::ivec3& value);
+		void set_uniform(const std::string& name, const glm::ivec4& value);
 		void set_uniform(const std::string& name, float value);
+		void set_uniform(const std::string& name, const glm::vec2& value);
+		void set_uniform(const std::string& name, const glm::vec3& value);
+		void set_uniform(const std::string& name, const glm::vec4& value);
+		void set_uniform(const std::string& name, const glm::mat3& value);
+		void set_uniform(const std::string& name, const glm::mat4& value);
 
 	private:
 		uint32_t m_handle;
