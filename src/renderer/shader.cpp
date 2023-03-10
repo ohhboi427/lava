@@ -53,52 +53,52 @@ namespace lava
 		return *this;
 	}
 
-	void shader::set_uniform(const std::string& name, int32_t value)
+	void shader::set_int(const std::string& name, int32_t value)
 	{
 		glProgramUniform1i(m_handle, uniform_location(name), value);
 	}
 
-	void shader::set_uniform(const std::string& name, const glm::ivec2& value)
+	void shader::set_int2(const std::string& name, const glm::ivec2& value)
 	{
 		glProgramUniform2iv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
 	}
 
-	void shader::set_uniform(const std::string& name, const glm::ivec3& value)
+	void shader::set_int3(const std::string& name, const glm::ivec3& value)
 	{
 		glProgramUniform3iv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
 	}
 
-	void shader::set_uniform(const std::string& name, const glm::ivec4& value)
+	void shader::set_int4(const std::string& name, const glm::ivec4& value)
 	{
 		glProgramUniform4iv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
 	}
 
-	void shader::set_uniform(const std::string& name, float value)
+	void shader::set_float(const std::string& name, float value)
 	{
 		glProgramUniform1f(m_handle, uniform_location(name), value);
 	}
 
-	void shader::set_uniform(const std::string& name, const glm::vec2& value)
+	void shader::set_float2(const std::string& name, const glm::vec2& value)
 	{
 		glProgramUniform2fv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
 	}
 
-	void shader::set_uniform(const std::string& name, const glm::vec3& value)
+	void shader::set_float3(const std::string& name, const glm::vec3& value)
 	{
 		glProgramUniform3fv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
 	}
 
-	void shader::set_uniform(const std::string& name, const glm::vec4& value)
+	void shader::set_float4(const std::string& name, const glm::vec4& value)
 	{
 		glProgramUniform4fv(m_handle, uniform_location(name), 1, glm::value_ptr(value));
 	}
 
-	void shader::set_uniform(const std::string& name, const glm::mat3& value)
+	void shader::set_float3x3(const std::string& name, const glm::mat3& value)
 	{
 		glProgramUniformMatrix3fv(m_handle, uniform_location(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
 
-	void shader::set_uniform(const std::string& name, const glm::mat4& value)
+	void shader::set_float4x4(const std::string& name, const glm::mat4& value)
 	{
 		glProgramUniformMatrix4fv(m_handle, uniform_location(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
