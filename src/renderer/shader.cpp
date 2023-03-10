@@ -1,25 +1,44 @@
 #include "pch.h"
 #include "shader.h"
 
+#include <glad/gl.h>
+
 namespace lava
 {
 	shader::shader(uint32_t handle)
 		: m_handle(handle)
-	{}
+	{
+		int32_t uniform_count;
+		glGetProgramInterfaceiv(m_handle, GL_UNIFORM, GL_ACTIVE_RESOURCES, &uniform_count);
+
+		uint32_t name_length_property = GL_NAME_LENGTH;
+		for(uint32_t i = 0u; i < (uint32_t)uniform_count; i++)
+		{
+			int32_t name_length;
+			glGetProgramResourceiv(m_handle, GL_UNIFORM, i, 1, &name_length_property, 1, nullptr, &name_length);
+
+			std::string name((size_t)name_length - 1u, (char)0);
+			glGetProgramResourceName(m_handle, GL_UNIFORM, i, name_length, nullptr, name.data());
+
+			m_uniforms.insert({ name, glGetProgramResourceLocation(m_handle, GL_UNIFORM, name.c_str()) });
+		}
+	}
 
 	shader::shader(const shader& other)
-		: m_handle(other.m_handle)
+		: m_handle(other.m_handle), m_uniforms(other.m_uniforms)
 	{}
 
 	shader::shader(shader&& other) noexcept
-		: m_handle(other.m_handle)
+		: m_handle(other.m_handle), m_uniforms(std::move(other.m_uniforms))
 	{
 		other.m_handle = 0u;
+		other.m_uniforms.clear();
 	}
 
 	shader& shader::operator=(const shader& rhs)
 	{
 		m_handle = rhs.m_handle;
+		m_uniforms = rhs.m_uniforms;
 
 		return *this;
 	}
@@ -27,9 +46,32 @@ namespace lava
 	shader& shader::operator=(shader&& rhs) noexcept
 	{
 		m_handle = rhs.m_handle;
+		m_uniforms = std::move(rhs.m_uniforms);
 
 		rhs.m_handle = 0u;
+		rhs.m_uniforms.clear();
 
 		return *this;
+	}
+
+	void shader::set_uniform(const std::string& name, int32_t value)
+	{
+		glProgramUniform1i(m_handle, uniform_location(name), value);
+	}
+
+	void shader::set_uniform(const std::string& name, float value)
+	{
+		glProgramUniform1f(m_handle, uniform_location(name), value);
+	}
+
+	int32_t shader::uniform_location(const std::string& name) const
+	{
+		std::string name_str(name.data());
+		if(!m_uniforms.contains(name_str))
+		{
+			return -1;
+		}
+
+		return m_uniforms.at(name_str);
 	}
 }
