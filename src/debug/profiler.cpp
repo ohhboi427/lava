@@ -16,7 +16,7 @@ namespace lava
 	profiler::~profiler()
 	{
 		m_timer->tick();
-		LAVA_LOGGER.debug("{} took {}ns.", m_name, m_timer->elpased_time<uint64_t, nanosecond_t>());
+		LAVA_LOGGER.debug("{} took {}ns.", m_name, m_timer->elpased_time<nanosecond_t, uint64_t>());
 
 		delete m_timer;
 	}

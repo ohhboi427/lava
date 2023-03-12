@@ -10,7 +10,7 @@
 namespace lava
 {
 	template<typename T>
-	concept resource_base = std::is_base_of<resource, T>::value;
+	concept resource_base = (std::is_base_of<resource, T>::value);
 
 	class resource_manager
 	{

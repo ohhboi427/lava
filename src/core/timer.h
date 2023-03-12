@@ -25,13 +25,13 @@ namespace lava
 		void reset();
 		void tick();
 
-		template<typename TType = float, typename TPeriod = second_t>
+		template<typename TPeriod = second_t, typename TType = float>
 		TType elpased_time() const
 		{
 			return std::chrono::duration_cast<std::chrono::duration<TType, TPeriod>>(m_current - m_start).count();
 		}
 
-		template<typename TType = float, typename TPeriod = second_t>
+		template<typename TPeriod = second_t, typename TType = float>
 		TType delta_time() const
 		{
 			return std::chrono::duration_cast<std::chrono::duration<TType, TPeriod>>(m_current - m_last).count();
