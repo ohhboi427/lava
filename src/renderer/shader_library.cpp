@@ -2,8 +2,8 @@
 #include "shader_library.h"
 
 #include "shader.h"
-#include "../resource/resource_manager.h"
 #include "../resource/text_file.h"
+#include "../resource/resource_manager.h"
 
 #include <glad/gl.h>
 #include <nlohmann/json.hpp>

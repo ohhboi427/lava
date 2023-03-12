@@ -4,8 +4,8 @@
 
 #include "resource.h"
 
-#include <memory>
 #include <filesystem>
+#include <memory>
 #include <unordered_map>
 
 namespace lava

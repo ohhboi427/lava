@@ -1,8 +1,8 @@
 #pragma once
 
-#include <ratio>
 #include <chrono>
 #include <cstdint>
+#include <ratio>
 
 namespace lava
 {
