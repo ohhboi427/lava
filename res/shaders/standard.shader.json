@@ -1,0 +1,4 @@
+{
+	"vertex": "src/standard.vert",
+	"fragment": "src/standard.frag"
+}

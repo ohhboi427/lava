@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "renderer.h"
 
+#include "shader_library.h"
 #include "../core/logger.h"
 #include "../core/window.h"
 
@@ -24,10 +25,14 @@ namespace lava
 		glEnable(GL_DEBUG_OUTPUT);
 		glDebugMessageCallback(renderer::opengl_debug_message_handler, nullptr);
 #endif // LAVA_DEBUG
+
+		shader_library::load_all("res/shaders");
 	}
 
 	renderer::~renderer()
-	{}
+	{
+		shader_library::purge_cache();
+	}
 
 	void renderer::render_frame()
 	{

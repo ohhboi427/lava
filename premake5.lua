@@ -19,6 +19,7 @@ project "lava"
 		"vendor/entt/include",
 		"vendor/glad/include",
 		"vendor/glfw/include",
+		"vendor/glm/include",
 	}
 	
 	libdirs {

@@ -5,7 +5,7 @@
 #include "window.h"
 #include "../renderer/renderer.h"
 #include "../renderer/shader.h"
-#include "../resource/resource_manager.h"
+#include "../renderer/shader_library.h"
 
 #include <GLFW/glfw3.h>
 
@@ -32,8 +32,6 @@ namespace lava
 
 	void application::run()
 	{
-		auto shader_ptr = resource_manager::get<shader>("res/shaders/standard");
-
 		while(m_running)
 		{
 			glfwPollEvents();
