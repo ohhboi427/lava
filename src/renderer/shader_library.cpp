@@ -101,7 +101,7 @@ namespace lava
 		std::vector<uint32_t> shaders;
 		for(const auto& [stage, source] : source_files)
 		{
-			uint32_t shader = shaders.emplace_back(glCreateShader((uint32_t)stage));
+			uint32_t& shader = shaders.emplace_back(glCreateShader((uint32_t)stage));
 
 			const char* source_cstr = source->cdata().c_str();
 			glShaderSource(shader, 1, &source_cstr, nullptr);
