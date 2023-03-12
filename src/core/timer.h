@@ -5,12 +5,12 @@
 
 namespace lava
 {
-	using period_nano_t = std::ratio<1, 1000000000>;
-	using period_micro_t = std::ratio<1, 1000000>;
-	using period_milli_t = std::ratio<1, 1000>;
-	using period_sec_t = std::ratio<1, 1>;
-	using period_min_t = std::ratio<60, 1>;
-	using period_hour_t = std::ratio<3600, 1>;
+	using nanosecond_t = std::ratio<1, 1000000000>;
+	using microsecond_t = std::ratio<1, 1000000>;
+	using millisecond_t = std::ratio<1, 1000>;
+	using second_t = std::ratio<1, 1>;
+	using minute_t = std::ratio<60, 1>;
+	using hour_t = std::ratio<3600, 1>;
 
 	class timer
 	{
@@ -25,13 +25,13 @@ namespace lava
 		void reset();
 		void tick();
 
-		template<typename TType = float, typename TPeriod = period_sec_t>
+		template<typename TType = float, typename TPeriod = second_t>
 		TType elpased_time() const
 		{
 			return std::chrono::duration_cast<std::chrono::duration<TType, TPeriod>>(m_current - m_start).count();
 		}
 
-		template<typename TType = float, typename TPeriod = period_sec_t>
+		template<typename TType = float, typename TPeriod = second_t>
 		TType delta_time() const
 		{
 			return std::chrono::duration_cast<std::chrono::duration<TType, TPeriod>>(m_current - m_last).count();
