@@ -1,18 +1,13 @@
 #pragma once
 
-#include <type_traits>
+#include "../utility/concepts.h"
+
 #include <vector>
 
 namespace lava
 {
 	class system;
 	class timer;
-
-	template<typename T>
-	concept system_base = (std::is_base_of<system, T>::value);
-
-	template<typename... Args>
-	concept system_base_n = (system_base<Args> && ...);
 
 	class system_manager
 	{
@@ -22,8 +17,11 @@ namespace lava
 		system_manager(system_manager&&) noexcept = delete;
 		~system_manager();
 
+		system_manager& operator=(const system_manager&) = delete;
+		system_manager& operator=(system_manager&&) noexcept = delete;
+
 		template<typename... Args>
-		void create_systems()
+		void create_systems() requires (is_same_as_n<system, Args...>)
 		{
 			m_systems = { create_system<Args>()... };
 		}

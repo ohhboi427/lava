@@ -1,17 +1,15 @@
 #pragma once
 
+#include "../utility/concepts.h"
+
 #include "resource.h"
 
 #include <memory>
 #include <filesystem>
-#include <type_traits>
 #include <unordered_map>
 
 namespace lava
 {
-	template<typename T>
-	concept resource_base = (std::is_base_of<resource, T>::value);
-
 	class resource_manager
 	{
 	public:
@@ -23,8 +21,8 @@ namespace lava
 		resource_manager& operator=(const resource_manager&) = delete;
 		resource_manager& operator=(resource_manager&&) noexcept = delete;
 
-		template<resource_base T>
-		static std::shared_ptr<T> get(const std::filesystem::path& path)
+		template<typename T>
+		static std::shared_ptr<T> get(const std::filesystem::path& path) requires (std::is_base_of_v<resource, T>)
 		{
 			if(s_resources.contains(path) && !(s_resources.at(path).expired()))
 			{

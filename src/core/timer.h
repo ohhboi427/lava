@@ -2,6 +2,7 @@
 
 #include <ratio>
 #include <chrono>
+#include <cstdint>
 
 namespace lava
 {
@@ -25,16 +26,16 @@ namespace lava
 		void reset();
 		void tick();
 
-		template<typename TPeriod = second_t, typename TType = float>
-		TType elpased_time() const
+		template<typename TPeriod = second_t, typename TRepetition = float>
+		TRepetition elpased_time() const
 		{
-			return std::chrono::duration_cast<std::chrono::duration<TType, TPeriod>>(m_current - m_start).count();
+			return std::chrono::duration_cast<std::chrono::duration<TRepetition, TPeriod>>(m_current - m_start).count();
 		}
 
-		template<typename TPeriod = second_t, typename TType = float>
-		TType delta_time() const
+		template<typename TPeriod = second_t, typename TRepetition = float>
+		TRepetition delta_time()  const
 		{
-			return std::chrono::duration_cast<std::chrono::duration<TType, TPeriod>>(m_current - m_last).count();
+			return std::chrono::duration_cast<std::chrono::duration<TRepetition, TPeriod>>(m_current - m_last).count();
 		}
 
 	private:
