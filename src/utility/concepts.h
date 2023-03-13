@@ -21,5 +21,5 @@ namespace lava
 	constexpr bool is_number_v = (std::is_integral_v<T> || std::is_floating_point_v<T>);
 
 	template<typename T>
-	struct is_number : std::bool_constant<(std::is_integral_v<T> || std::is_floating_point_v<T>)> {};
+	struct is_number : std::bool_constant<is_number_v<T>> {};
 }
