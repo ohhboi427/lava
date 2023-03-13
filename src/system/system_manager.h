@@ -21,8 +21,7 @@ namespace lava
 		system_manager& operator=(system_manager&&) noexcept = delete;
 
 		template<typename... Args>
-		requires(is_base_of_n_v<system, Args...>)
-		void create_systems()
+		void create_systems() requires(is_base_of_n_v<system, Args...>)
 		{
 			m_systems = { create_system<Args>()... };
 		}

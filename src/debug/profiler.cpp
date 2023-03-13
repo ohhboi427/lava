@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "profiler.h"
 
-#include "../core/logger.h"
+#include "../core/log.h"
 #include "../core/timer.h"
 
 namespace lava
@@ -16,7 +16,7 @@ namespace lava
 	profiler::~profiler()
 	{
 		m_timer->tick();
-		LAVA_LOGGER.debug("{} took {}ns.", m_name, m_timer->elpased_time<nanosecond_t, uint64_t>());
+		log::debug("{} took {}ns.", m_name, m_timer->elpased_time<nanosecond_t, uint64_t>());
 
 		delete m_timer;
 	}

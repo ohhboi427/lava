@@ -2,7 +2,6 @@
 
 namespace lava
 {
-	class logger;
 	class timer;
 	class window;
 	class renderer;
@@ -23,7 +22,6 @@ namespace lava
 
 	private:
 		bool m_running = true;
-		logger* m_logger;
 		timer* m_timer;
 		window* m_window;
 		renderer* m_renderer;

@@ -7,7 +7,6 @@ namespace lava
 	class resource
 	{
 	public:
-		resource(const std::filesystem::path& path);
 		resource(const resource&) = delete;
 		resource(resource&&) noexcept = delete;
 		virtual ~resource();
@@ -19,5 +18,7 @@ namespace lava
 
 	protected:
 		std::filesystem::path m_path;
+
+		resource(const std::filesystem::path& path);
 	};
 }

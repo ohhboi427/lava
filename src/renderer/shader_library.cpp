@@ -18,6 +18,8 @@ namespace lava
 			fragment = 35632u,
 		};
 
+		std::unordered_map<std::filesystem::path, shader*> s_shaders;
+
 		std::string stage_to_str(shader_stage stage)
 		{
 			switch(stage)
@@ -30,9 +32,52 @@ namespace lava
 
 			return "invalid";
 		}
-	}
 
-	std::unordered_map<std::filesystem::path, shader*> shader_library::s_shaders;
+		shader* compile_shader(const std::filesystem::path& path)
+		{
+			static constexpr std::array<shader_stage, 2u> s_stages =
+			{
+				shader_stage::vertex,
+				shader_stage::fragment,
+			};
+
+			std::ifstream file(path);
+			nlohmann::json shader_description = nlohmann::json::parse(file);
+			file.close();
+
+			std::filesystem::path directory = path.parent_path();
+
+			std::unordered_map<shader_stage, std::shared_ptr<text_file>> source_files;
+			for(const auto& stage : s_stages)
+			{
+				source_files.insert({ stage, resource_manager::get<text_file>(directory / shader_description.at(stage_to_str(stage))) });
+			}
+
+			uint32_t handle = glCreateProgram();
+
+			std::vector<uint32_t> shaders;
+			for(const auto& [stage, source] : source_files)
+			{
+				uint32_t& shader = shaders.emplace_back(glCreateShader((uint32_t)stage));
+
+				const char* source_cstr = source->cdata().c_str();
+				glShaderSource(shader, 1, &source_cstr, nullptr);
+
+				glCompileShader(shader);
+
+				glAttachShader(handle, shader);
+			}
+
+			glLinkProgram(handle);
+
+			for(const auto& shader : shaders)
+			{
+				glDeleteShader(shader);
+			}
+
+			return new shader(handle);
+		}
+	}
 
 	void shader_library::load_all(const std::filesystem::path& directory)
 	{
@@ -48,7 +93,7 @@ namespace lava
 
 	void shader_library::load(const std::filesystem::path& path)
 	{
-		shader* new_shader = compile(path);
+		shader* new_shader = compile_shader(path);
 		s_shaders.insert({ path, new_shader });
 	}
 
@@ -70,54 +115,9 @@ namespace lava
 			return *(s_shaders.at(path));
 		}
 
-		shader* new_shader = compile(path);
+		shader* new_shader = compile_shader(path);
 		s_shaders.insert({ path, new_shader });
 
 		return *new_shader;
-	}
-
-	shader* shader_library::compile(const std::filesystem::path& path)
-	{
-		static constexpr std::array<shader_stage, 2u> s_stages =
-		{
-			shader_stage::vertex,
-			shader_stage::fragment,
-		};
-
-		std::ifstream file(path);
-		nlohmann::json shader_description = nlohmann::json::parse(file);
-		file.close();
-
-		std::filesystem::path directory = path.parent_path();
-
-		std::unordered_map<shader_stage, std::shared_ptr<text_file>> source_files;
-		for(const auto& stage : s_stages)
-		{
-			source_files.insert({ stage, resource_manager::get<text_file>(directory / shader_description.at(stage_to_str(stage))) });
-		}
-
-		uint32_t handle = glCreateProgram();
-
-		std::vector<uint32_t> shaders;
-		for(const auto& [stage, source] : source_files)
-		{
-			uint32_t& shader = shaders.emplace_back(glCreateShader((uint32_t)stage));
-
-			const char* source_cstr = source->cdata().c_str();
-			glShaderSource(shader, 1, &source_cstr, nullptr);
-
-			glCompileShader(shader);
-
-			glAttachShader(handle, shader);
-		}
-
-		glLinkProgram(handle);
-
-		for(const auto& shader : shaders)
-		{
-			glDeleteShader(shader);
-		}
-
-		return new shader(handle);
 	}
 }

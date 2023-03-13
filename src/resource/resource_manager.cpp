@@ -3,5 +3,5 @@
 
 namespace lava
 {
-	std::unordered_map<std::filesystem::path, std::weak_ptr<resource>> resource_manager::s_resources;
+	std::unordered_map<std::filesystem::path, std::weak_ptr<resource>> resource_manager::detail::s_resources;
 }

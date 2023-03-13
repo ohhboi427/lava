@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "application.h"
 
-#include "logger.h"
 #include "timer.h"
 #include "window.h"
 #include "../renderer/renderer.h"
@@ -17,8 +16,6 @@ namespace lava
 {
 	application::application()
 	{
-		m_logger = logger::create("lava", "%^%T [%l]: %v%$");
-
 		m_timer = new timer();
 
 		m_window = new window(800, 600, "lava");
@@ -35,7 +32,6 @@ namespace lava
 		delete m_renderer;
 		delete m_window;
 		delete m_timer;
-		delete m_logger;
 	}
 
 	void application::run()

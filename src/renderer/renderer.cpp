@@ -4,7 +4,7 @@
 #include "mesh.h"
 #include "shader.h"
 #include "shader_library.h"
-#include "../core/logger.h"
+#include "../core/log.h"
 #include "../core/window.h"
 
 #include <glad/gl.h>
@@ -68,14 +68,14 @@ namespace lava
 		switch(severity)
 		{
 		case GL_DEBUG_SEVERITY_HIGH:
-			LAVA_LOGGER.error("OpenGL[{}]: {}", id, msg);
+			log::error("OpenGL[{}]: {}", id, msg);
 			break;
 		case GL_DEBUG_SEVERITY_MEDIUM:
 		case GL_DEBUG_SEVERITY_LOW:
-			LAVA_LOGGER.warning("OpenGL[{}]: {}", id, msg);
+			log::warning("OpenGL[{}]: {}", id, msg);
 			break;
 		case GL_DEBUG_SEVERITY_NOTIFICATION:
-			LAVA_LOGGER.info("OpenGL[{}]: {}", id, msg);
+			log::info("OpenGL[{}]: {}", id, msg);
 			break;
 		}
 	}

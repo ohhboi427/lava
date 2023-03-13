@@ -8,13 +8,10 @@
 
 namespace lava
 {
-	class shader_library;
-
 	class shader
 	{
-		friend class shader_library;
-
 	public:
+		shader(uint32_t handle);
 		shader(const shader& other);
 		shader(shader&& other) noexcept;
 
@@ -37,8 +34,6 @@ namespace lava
 	private:
 		uint32_t m_handle;
 		std::unordered_map<std::string, int32_t> m_uniforms;
-
-		shader(uint32_t handle);
 
 		int32_t uniform_location(const std::string& name) const;
 	};
