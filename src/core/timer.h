@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../utility/concepts.h"
+
 #include <chrono>
 #include <cstdint>
 #include <ratio>
@@ -27,13 +29,15 @@ namespace lava
 		void tick();
 
 		template<typename TPeriod = second_t, typename TRepetition = float>
+		requires(is_number_v<TRepetition>)
 		TRepetition elpased_time() const
 		{
 			return std::chrono::duration_cast<std::chrono::duration<TRepetition, TPeriod>>(m_current - m_start).count();
 		}
 
 		template<typename TPeriod = second_t, typename TRepetition = float>
-		TRepetition delta_time()  const
+		requires(is_number_v<TRepetition>)
+		TRepetition delta_time() const
 		{
 			return std::chrono::duration_cast<std::chrono::duration<TRepetition, TPeriod>>(m_current - m_last).count();
 		}

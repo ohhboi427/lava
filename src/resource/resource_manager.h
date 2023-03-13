@@ -22,7 +22,8 @@ namespace lava
 		resource_manager& operator=(resource_manager&&) noexcept = delete;
 
 		template<typename T>
-		static std::shared_ptr<T> get(const std::filesystem::path& path) requires (std::is_base_of_v<resource, T>)
+		requires (std::is_base_of_v<resource, T>)
+		static std::shared_ptr<T> get(const std::filesystem::path& path)
 		{
 			if(s_resources.contains(path) && !(s_resources.at(path).expired()))
 			{

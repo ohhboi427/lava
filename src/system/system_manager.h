@@ -21,7 +21,8 @@ namespace lava
 		system_manager& operator=(system_manager&&) noexcept = delete;
 
 		template<typename... Args>
-		void create_systems() requires (is_same_as_n<system, Args...>)
+		requires(is_base_of_n_v<system, Args...>)
+		void create_systems()
 		{
 			m_systems = { create_system<Args>()... };
 		}
@@ -34,6 +35,7 @@ namespace lava
 		std::vector<system*> m_systems;
 
 		template<typename T>
+		requires(std::is_base_of_v<system, T>)
 		T* create_system()
 		{
 			return new T();
