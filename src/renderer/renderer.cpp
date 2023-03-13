@@ -3,7 +3,6 @@
 
 #include "mesh.h"
 #include "shader.h"
-#include "shader_library.h"
 #include "../core/log.h"
 #include "../core/window.h"
 
@@ -27,13 +26,11 @@ namespace lava
 		glEnable(GL_DEBUG_OUTPUT);
 		glDebugMessageCallback(renderer::opengl_debug_message_handler, nullptr);
 #endif // LAVA_DEBUG
-
-		shader_library::load_all("res/shaders");
 	}
 
 	renderer::~renderer()
 	{
-		shader_library::purge_cache();
+
 	}
 
 	void renderer::submit(const mesh& mesh, const shader& shader)

@@ -1,13 +1,93 @@
 #include "pch.h"
 #include "shader.h"
 
+#include "../resource/resource_manager.h"
+#include "../resource/text_file.h"
+
 #include <glad/gl.h>
 #include <glm/gtc/type_ptr.hpp>
+#include <nlohmann/json.hpp>
 
 namespace lava
 {
-	shader::shader(uint32_t handle)
-		: m_handle(handle)
+	namespace
+	{
+		enum class shader_stage : uint32_t
+		{
+			vertex = 35633u,
+			fragment = 35632u,
+		};
+
+		std::string stage_to_str(shader_stage stage)
+		{
+			switch(stage)
+			{
+			case shader_stage::vertex:
+				return "vertex";
+			case shader_stage::fragment:
+				return "fragment";
+			}
+
+			return "invalid";
+		}
+	}
+
+	shader::shader(const std::filesystem::path& path)
+		: resource(path)
+	{
+		compile();
+		reflect();
+	}
+
+	shader::~shader()
+	{
+		glDeleteProgram(m_handle);
+	}
+
+	void shader::compile()
+	{
+		static constexpr std::array<shader_stage, 2u> s_stages =
+		{
+			shader_stage::vertex,
+			shader_stage::fragment,
+		};
+
+		std::ifstream file(m_path);
+		nlohmann::json shader_description = nlohmann::json::parse(file);
+		file.close();
+
+		std::filesystem::path directory = m_path.parent_path();
+
+		std::unordered_map<shader_stage, std::shared_ptr<text_file>> source_files;
+		for(const auto& stage : s_stages)
+		{
+			source_files.insert({ stage, resource_manager::get<text_file>(directory / shader_description.at(stage_to_str(stage))) });
+		}
+
+		m_handle = glCreateProgram();
+
+		std::vector<uint32_t> shaders;
+		for(const auto& [stage, source] : source_files)
+		{
+			uint32_t& shader = shaders.emplace_back(glCreateShader((uint32_t)stage));
+
+			const char* source_cstr = source->cdata().c_str();
+			glShaderSource(shader, 1, &source_cstr, nullptr);
+
+			glCompileShader(shader);
+
+			glAttachShader(m_handle, shader);
+		}
+
+		glLinkProgram(m_handle);
+
+		for(const auto& shader : shaders)
+		{
+			glDeleteShader(shader);
+		}
+	}
+
+	void shader::reflect()
 	{
 		int32_t uniform_count;
 		glGetProgramInterfaceiv(m_handle, GL_UNIFORM, GL_ACTIVE_RESOURCES, &uniform_count);
@@ -23,36 +103,6 @@ namespace lava
 
 			m_uniforms.insert({ name, glGetProgramResourceLocation(m_handle, GL_UNIFORM, name.c_str()) });
 		}
-	}
-
-	shader::shader(const shader& other)
-		: m_handle(other.m_handle), m_uniforms(other.m_uniforms)
-	{}
-
-	shader::shader(shader&& other) noexcept
-		: m_handle(other.m_handle), m_uniforms(std::move(other.m_uniforms))
-	{
-		other.m_handle = 0u;
-		other.m_uniforms.clear();
-	}
-
-	shader& shader::operator=(const shader& rhs)
-	{
-		m_handle = rhs.m_handle;
-		m_uniforms = rhs.m_uniforms;
-
-		return *this;
-	}
-
-	shader& shader::operator=(shader&& rhs) noexcept
-	{
-		m_handle = rhs.m_handle;
-		m_uniforms = std::move(rhs.m_uniforms);
-
-		rhs.m_handle = 0u;
-		rhs.m_uniforms.clear();
-
-		return *this;
 	}
 
 	void shader::set_int(const std::string& name, int32_t value)

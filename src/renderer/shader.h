@@ -1,22 +1,21 @@
 #pragma once
 
+#include "../resource/resource.h"
+
 #include <glm/glm.hpp>
 
+#include <filesystem>
 #include <string>
 #include <unordered_map>
 #include <cstdint>
 
 namespace lava
 {
-	class shader
+	class shader : public resource
 	{
 	public:
-		shader(uint32_t handle);
-		shader(const shader& other);
-		shader(shader&& other) noexcept;
-
-		shader& operator=(const shader& rhs);
-		shader& operator=(shader&& rhs) noexcept;
+		shader(const std::filesystem::path& path);
+		~shader();
 
 		operator uint32_t () const { return m_handle; }
 
@@ -36,5 +35,8 @@ namespace lava
 		std::unordered_map<std::string, int32_t> m_uniforms;
 
 		int32_t uniform_location(const std::string& name) const;
+
+		void compile();
+		void reflect();
 	};
 }
