@@ -1,6 +1,6 @@
 #version 460 core
 
-layout(location = 0) in varyings
+in varyings
 {
 	vec3 position;
 	vec3 normal;

@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "renderer.h"
 
+#include "mesh.h"
+#include "shader.h"
 #include "shader_library.h"
 #include "../core/logger.h"
 #include "../core/window.h"
@@ -34,11 +36,22 @@ namespace lava
 		shader_library::purge_cache();
 	}
 
+	void renderer::submit(const mesh& mesh, const shader& shader)
+	{
+		m_draw_commands.emplace_back(std::cref(mesh), std::cref(shader));
+	}
+
 	void renderer::render_frame()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		// TODO: Rendering
+		for(const auto& [mesh, shader] : m_draw_commands)
+		{
+			glUseProgram(shader);
+			glBindVertexArray(mesh);
+
+			glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
+		}
 
 		glfwSwapBuffers(m_window);
 	}
