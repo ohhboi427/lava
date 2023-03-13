@@ -7,6 +7,7 @@
 namespace lava
 {
 	class system;
+	class world;
 	class timer;
 
 	class system_manager
@@ -26,9 +27,9 @@ namespace lava
 			m_systems = { create_system<Args>()... };
 		}
 
-		void start_all();
-		void update_all(const timer& timer);
-		void stop_all();
+		void start_all(world& world);
+		void update_all(world& world, const timer& timer);
+		void stop_all(world& world);
 
 	private:
 		std::vector<system*> m_systems;

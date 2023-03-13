@@ -4,8 +4,9 @@ namespace lava
 {
 	class timer;
 	class window;
-	class renderer;
 	class system_manager;
+	class world;
+	class renderer;
 
 	class application
 	{
@@ -24,7 +25,8 @@ namespace lava
 		bool m_running = true;
 		timer* m_timer;
 		window* m_window;
-		renderer* m_renderer;
 		system_manager* m_system_manager;
+		world* m_world;
+		renderer* m_renderer;
 	};
 }
