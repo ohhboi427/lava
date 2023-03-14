@@ -52,12 +52,9 @@ namespace lava
 			shader_stage::fragment,
 		};
 
-		std::ifstream file(m_path);
-		nlohmann::json shader_description = nlohmann::json::parse(file);
-		file.close();
-
 		std::filesystem::path directory = m_path.parent_path();
-
+		nlohmann::json shader_description = nlohmann::json::parse(std::ifstream(m_path));
+		
 		std::unordered_map<shader_stage, std::shared_ptr<text_file>> source_files;
 		for(const auto& stage : s_stages)
 		{

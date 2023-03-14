@@ -8,6 +8,7 @@
 namespace lava
 {
 	mesh::mesh()
+		: resource("")
 	{
 		glCreateVertexArrays(1, &m_vao_handle);
 

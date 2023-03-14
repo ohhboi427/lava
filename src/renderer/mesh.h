@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../resource/resource.h"
+
+#include <filesystem>
 #include <vector>
 #include <cstdint>
 
@@ -9,7 +12,7 @@ namespace lava
 {
 	class buffer;
 
-	class mesh
+	class mesh : public resource
 	{
 	public:
 		std::vector<glm::vec3> positions;
@@ -18,12 +21,7 @@ namespace lava
 		std::vector<uint32_t> indices;
 
 		mesh();
-		mesh(const mesh&) = delete;
-		mesh(mesh&&) noexcept = delete;
 		~mesh();
-
-		mesh& operator=(const mesh&) = delete;
-		mesh& operator=(mesh&&) noexcept = delete;
 
 		operator uint32_t () const { return m_vao_handle; }
 

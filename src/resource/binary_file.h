@@ -1,10 +1,10 @@
 #pragma once
 
+#include "resource.h"
+
 #include <filesystem>
 #include <vector>
 #include <cstdint>
-
-#include "resource.h"
 
 namespace lava
 {
